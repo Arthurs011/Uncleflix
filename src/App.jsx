@@ -1,0 +1,31 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Movies from './pages/Movies';
+import TV from './pages/TV';
+import Search from './pages/Search';
+import Watch from './pages/Watch';
+import MyList from './pages/MyList';
+
+function App() {
+  return (
+    <Router>
+      <div className="bg-primary min-h-screen text-white overflow-x-hidden">
+        <Navbar />
+        <main className="pt-20">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/tv" element={<TV />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/watch/:type/:id" element={<Watch />} />
+            <Route path="/my-list" element={<MyList />} />
+            <Route path="*" element={<div className="p-8 text-center text-gray-400">404 - Page Not Found</div>} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
