@@ -83,7 +83,7 @@ const Genre = () => {
                 transition={{ delay: Math.min(idx * 0.02, 0.4) }}
                 className="w-full"
               >
-                <Card item={item} type={type} />
+                <Card item={item} type={type} className="w-full" />
               </motion.div>
             ))}
           </motion.div>

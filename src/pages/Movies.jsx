@@ -40,9 +40,9 @@ const Movies = () => {
 
   return (
     <div className="pt-4 pb-12">
-      <div className="px-4 md:px-8 py-6">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-1">Movies</h1>
-        <p className="text-gray-500 text-sm">Explore trending, popular, and top rated movies</p>
+      <div className="px-3 sm:px-4 md:px-8 pt-3 pb-4 md:py-6">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-0.5">Movies</h1>
+        <p className="text-gray-500 text-xs sm:text-sm">Explore trending, popular, and top rated movies</p>
       </div>
 
       <GenreRow mediaType="movie" />

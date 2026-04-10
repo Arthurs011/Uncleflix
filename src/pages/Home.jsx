@@ -70,7 +70,7 @@ const Home = () => {
   }
 
   return (
-    <div className="-mt-20">
+    <div className="-mt-14 md:-mt-16">
       {heroItems.length > 0 && <HeroBanner items={heroItems} />}
 
       <div className="mt-4">

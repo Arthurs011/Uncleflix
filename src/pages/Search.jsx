@@ -95,7 +95,7 @@ const Search = () => {
             </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
               {results.map((item) => (
-                <Card key={`${item.media_type}-${item.id}`} item={item} type={item.media_type} />
+                <Card key={`${item.media_type}-${item.id}`} item={item} type={item.media_type} className="w-full" />
               ))}
             </div>
           </>
