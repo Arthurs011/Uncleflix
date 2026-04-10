@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import HeroBanner from '../components/HeroBanner';
 import Row from '../components/Row';
+import GenreRow from '../components/GenreRow';
 import { useRecentlyViewed } from '../hooks/useLocalStorage';
 import {
   fetchTrending,
@@ -41,10 +42,9 @@ const Home = () => {
         top_rated: tvTopRated.data.results || []
       });
 
-      // Interleave top movies and TV for a varied hero
+      // Interleave top movies + TV for a varied hero
       const heroPool = [];
-      const maxHero = 6;
-      for (let i = 0; i < maxHero; i++) {
+      for (let i = 0; i < 5; i++) {
         if (movieResults[i]) heroPool.push(movieResults[i]);
         if (tvResults[i]) heroPool.push(tvResults[i]);
       }
@@ -64,7 +64,7 @@ const Home = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4">
         <Loader2 className="animate-spin text-accent" size={44} />
-        <span className="text-gray-400 text-lg">Loading UncleFlix...</span>
+        <span className="text-gray-500">Loading UncleFlix...</span>
       </div>
     );
   }
@@ -73,7 +73,7 @@ const Home = () => {
     <div className="-mt-20">
       {heroItems.length > 0 && <HeroBanner items={heroItems} />}
 
-      <div className="mt-2">
+      <div className="mt-4">
         {recent.length > 0 && (
           <Row title="▶ Continue Watching" items={recent} type={recent[0]?.type} showProgress />
         )}
@@ -84,12 +84,20 @@ const Home = () => {
         {tv.trending.length > 0 && (
           <Row title="📺 Trending TV Shows" items={tv.trending} type="tv" />
         )}
+
+        {/* Genre browsing for movies */}
+        <GenreRow mediaType="movie" />
+
         {movies.popular.length > 0 && (
           <Row title="⭐ Popular Movies" items={movies.popular} type="movie" />
         )}
         {tv.popular.length > 0 && (
           <Row title="🌟 Popular TV Shows" items={tv.popular} type="tv" />
         )}
+
+        {/* Genre browsing for TV */}
+        <GenreRow mediaType="tv" />
+
         {movies.top_rated.length > 0 && (
           <Row title="🏆 Top Rated Movies" items={movies.top_rated} type="movie" />
         )}

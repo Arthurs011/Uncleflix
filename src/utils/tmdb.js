@@ -20,6 +20,10 @@ export const searchMulti = (query) => api.get('/search/multi', { params: { query
 export const fetchDetails = (type, id) => api.get(`/${type}/${id}`);
 export const fetchVideos = (type, id) => api.get(`/${type}/${id}/videos`);
 export const fetchSeasonEpisodes = (tvId, seasonNumber) => api.get(`/tv/${tvId}/season/${seasonNumber}`);
+export const fetchRecommendations = (type, id) => api.get(`/${type}/${id}/recommendations`);
+export const fetchGenres = (type) => api.get(`/genre/${type}/list`);
+export const fetchByGenre = (type, genreId, page = 1) =>
+  api.get(`/discover/${type}`, { params: { with_genres: genreId, sort_by: 'popularity.desc', page } });
 
 export { IMAGE_BASE_URL };
 

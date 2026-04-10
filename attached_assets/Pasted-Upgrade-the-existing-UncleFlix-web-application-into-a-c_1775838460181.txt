@@ -1,0 +1,221 @@
+Upgrade the existing "UncleFlix" web application into a clean, premium OTT platform with intelligent playback, genre-based browsing, and simplified UI.
+
+IMPORTANT CHANGES:
+- REMOVE "Watch Now" and "Play Next" buttons completely
+- Focus on seamless playback + discovery instead of extra buttons
+
+-------------------------------------
+
+🎬 UI PHILOSOPHY:
+
+- Netflix-style browsing (clean, cinematic, minimal)
+- No clutter or unnecessary buttons
+- Content-first design
+- Smooth interactions
+
+-------------------------------------
+
+🎥 PLAYER SYSTEM (MAJOR UPGRADE)
+
+1. MOVIES:
+- Simple fullscreen player
+- No extra controls UI (keep it clean)
+- Below player:
+   - Title
+   - Overview
+   - Rating
+   - Recommended Movies row
+
+2. TV SERIES (IMPORTANT):
+
+Implement YouTube-like smart playback logic:
+
+-------------------------------------
+
+AUTO-NEXT EPISODE SYSTEM:
+
+- After episode ends → automatically play next episode
+- Show overlay:
+   "Next Episode starts in 5 seconds"
+- Countdown timer (5 → 0)
+- Button: "Cancel"
+
+-------------------------------------
+
+EPISODE NAVIGATION:
+
+Below player:
+
+- Season selector (dropdown)
+- Episode list (vertical scroll)
+- Highlight current episode
+
+Click episode:
+→ instantly load new stream
+
+-------------------------------------
+
+PLAYBACK MEMORY:
+
+- Save last watched:
+   {
+     id,
+     type: "tv",
+     season,
+     episode,
+     timestamp
+   }
+
+- When user returns:
+👉 Resume from last episode
+
+-------------------------------------
+
+🎯 GENRE-BASED BROWSING (VERY IMPORTANT)
+
+Implement Netflix-style genre discovery:
+
+-------------------------------------
+
+1. FETCH GENRES:
+
+Movies:
+GET /genre/movie/list
+
+TV:
+GET /genre/tv/list
+
+-------------------------------------
+
+2. DISPLAY GENRES:
+
+Create horizontal scroll section:
+
+- Action
+- Comedy
+- Thriller
+- Sci-Fi
+- Drama
+- etc.
+
+-------------------------------------
+
+3. ON CLICK GENRE:
+
+Fetch:
+
+Movies:
+GET /discover/movie?with_genres={genre_id}
+
+TV:
+GET /discover/tv?with_genres={genre_id}
+
+-------------------------------------
+
+4. CREATE PAGE:
+
+/genre/:id
+
+Show:
+- Grid of content
+- Title = Genre name
+
+-------------------------------------
+
+🎬 HOMEPAGE IMPROVEMENTS:
+
+1. REMOVE unnecessary buttons
+
+2. ADD:
+
+- Recently Viewed (top row)
+- Continue Watching (with progress)
+- Trending Movies
+- Trending TV Shows
+- Genre Rows
+
+-------------------------------------
+
+🎯 RECOMMENDATION SYSTEM:
+
+On Movie or TV page:
+
+- Show:
+   "Recommended for You"
+
+Use:
+GET /movie/{id}/recommendations
+GET /tv/{id}/recommendations
+
+-------------------------------------
+
+🎥 PLAYER LAYOUT:
+
+-------------------------------------
+| VIDEO PLAYER                     |
+-------------------------------------
+| Title + Info                     |
+-------------------------------------
+| Episodes (if TV)                 |
+-------------------------------------
+| Recommended Content             |
+-------------------------------------
+
+-------------------------------------
+
+🧠 STATE MANAGEMENT:
+
+Store in localStorage:
+
+1. Recently Viewed
+2. Continue Watching
+3. Last episode watched
+
+-------------------------------------
+
+🎨 UI STYLE:
+
+- Dark blue theme
+- Glassmorphism cards
+- Glow hover effects
+- Smooth scaling animations
+
+-------------------------------------
+
+⚙️ COMPONENT STRUCTURE:
+
+- Player.jsx
+- EpisodeList.jsx
+- SeasonSelector.jsx
+- GenreRow.jsx
+- ContinueWatching.jsx
+- Recommendations.jsx
+
+-------------------------------------
+
+🚀 UX GOALS:
+
+- Zero clutter UI
+- Seamless episode watching
+- Smart recommendations
+- Easy content discovery via genres
+
+-------------------------------------
+
+OUTPUT:
+
+- Updated components
+- Working auto-next system
+- Genre browsing system
+- Clean UI without unnecessary buttons
+- Fully functional app
+
+-------------------------------------
+
+GOAL:
+
+Transform UncleFlix into a polished OTT platform with:
+- Smart TV series playback (auto-next)
+- Genre-based browsing
+- Clean Netflix-style UI
+- Intelligent content flow

@@ -1,6 +1,6 @@
 # UncleFlix
 
-A Netflix-style streaming PWA built with React and Vite, featuring a YouTube-style player and cinematic browsing UI.
+A premium Netflix-style OTT streaming PWA built with React and Vite — featuring genre-based browsing, YouTube-style player with auto-next, and smart playback memory.
 
 ## Tech Stack
 
@@ -10,69 +10,76 @@ A Netflix-style streaming PWA built with React and Vite, featuring a YouTube-sty
 - **Animations:** Framer Motion
 - **Icons:** Lucide React
 - **HTTP Client:** Axios
-- **APIs:** TMDB (The Movie Database) for metadata, VidSrc/VSEmbed for streaming
+- **APIs:** TMDB for metadata/recommendations, VidSrc/VSEmbed for streaming
 
 ## Project Structure
 
 ```
 src/
   components/
-    Navbar.jsx          # Navigation bar
-    HeroBanner.jsx      # Auto-cycling hero with arrows/dots, accepts items[] or single item
-    Card.jsx            # Movie/TV card with glassmorphism hover, glow border, play button
-    Row.jsx             # Horizontal scrolling row with snap scrolling
-    VideoFrame.jsx      # 16:9 iframe player with back/title overlays and error state
-    Recommendations.jsx # YouTube-style "Up Next" sidebar with trending content
-    SeasonSelector.jsx  # Season dropdown for TV shows
-    EpisodeSelector.jsx # Styled episode list for TV shows
+    Navbar.jsx           # Navigation bar
+    HeroBanner.jsx       # Auto-cycling hero (accepts items[]), arrows + dots
+    Card.jsx             # Glassmorphism card with glow hover + play button overlay
+    Row.jsx              # Horizontal snap-scroll row with arrow nav
+    VideoFrame.jsx       # 16:9 iframe player with back/title overlays
+    Recommendations.jsx  # TMDB recommendations + trending fallback sidebar
+    AutoNextOverlay.jsx  # TV auto-next countdown overlay (5s) with cancel
+    GenreRow.jsx         # Horizontal genre pill strip linking to /genre/:type/:id
+    SeasonSelector.jsx   # Season dropdown (standalone or inline mode)
+    EpisodeSelector.jsx  # Styled episode list with active highlight
   pages/
-    Home.jsx            # Homepage with auto-cycling hero + categorized rows + continue watching
-    Movies.jsx          # Movies browsing page
-    TV.jsx              # TV shows browsing page
-    Search.jsx          # Search with debouncing
-    Watch.jsx           # YouTube-style watch page: player + metadata + sidebar recommendations
-    MyList.jsx          # Saved watchlist
+    Home.jsx      # Hero + Continue Watching + genre rows + trending rows
+    Movies.jsx    # Movies page with genre strip
+    TV.jsx        # TV shows page with genre strip
+    Search.jsx    # Debounced multi-search
+    Watch.jsx     # Full player page: video + auto-next + TMDB recs sidebar
+    MyList.jsx    # Saved watchlist
+    Genre.jsx     # /genre/:type/:id grid with pagination ("Load More")
   hooks/
-    useLocalStorage.js  # useRecentlyViewed + useWatchlist hooks (all callbacks memoized)
+    useLocalStorage.js   # useRecentlyViewed, useWatchlist, usePlaybackMemory
   utils/
-    tmdb.js             # TMDB API helpers
-  App.jsx               # Root with router
-  main.jsx              # Entry point
-public/                 # Static assets, PWA manifest, service worker
+    tmdb.js              # All TMDB API helpers
+  App.jsx         # Router including /genre/:type/:id
+  main.jsx        # Entry point (StrictMode)
 ```
 
-## Key UI Features
+## Key Features
 
-### Watch Page (YouTube-style)
-- 16:9 rounded video player with back button and title overlay
-- Mode toggle: Watch Now / Trailer
-- Title, rating, year, runtime, genre metadata
-- Like, Share, Save action buttons
-- Expandable description
-- "Up Next" sidebar with clickable recommendations
-- TV: Season dropdown + styled episode list
+### Watch Page
+- **Clean layout**: video player → title/meta → episodes (TV) → recommendations (mobile) | sidebar (desktop)
+- **No clutter**: removed "Watch Now" button; only "Watch Trailer" pill and "Next: S1 E2" shortcut visible
+- **Auto-next episode**: "Next: S1 E2" button triggers 5-second countdown overlay with cancel
+- **Playback memory**: saves last watched season/episode per show to localStorage; resumes on return
+- **Real TMDB recommendations**: `/movie/{id}/recommendations` and `/tv/{id}/recommendations`, falls back to trending
+- **Inline season selector** next to "Episodes" heading for cleaner layout
 
-### Homepage (Netflix-style)
-- Auto-cycling hero banner (8 items, every 6s) with navigation arrows + dot indicators
-- Continue Watching row (recently viewed)
-- Categorized rows: Trending, Popular, Top Rated for Movies and TV
+### Genre Browsing
+- **GenreRow**: horizontal scrollable pill strip with emoji + genre name + arrow
+- **Genre page**: `/genre/:type/:id?name=X` — full grid, "Load More" pagination, breadcrumb back nav
+- Available on Home, Movies, and TV pages
 
-### Cards
-- Glassmorphism poster with rating badge + type badge
-- Hover: glow cyan border, scale, play button overlay, title reveal
-- Optional progress bar for continue watching
+### Homepage
+- Auto-cycling hero banner (8 trending items, 6s interval)
+- Continue Watching row at the top
+- Two genre strips (Movies + TV)
+- Six content rows (trending, popular, top-rated × 2)
+
+### Playback Memory Schema (localStorage)
+```json
+{ "tv-1396": { "id": "1396", "type": "tv", "season": 2, "episode": 5, "timestamp": 1234567890 } }
+```
 
 ## Configuration
 
-- **Dev server:** Vite on `0.0.0.0:5000`
+- **Dev server:** `0.0.0.0:5000`
+- **Theme:** Primary `#0B0F1A` · Accent `#3B82F6` · Glow `#22D3EE`
 - **TMDB API key:** Hardcoded in `src/utils/tmdb.js`
-- **Theme colors:** Primary `#0B0F1A`, Accent `#3B82F6`, Glow `#22D3EE`
-- **Deployment:** Static site — builds to `dist/` via `npm run build`
+- **Deployment:** Static → `dist/` via `npm run build`
 
 ## Running
 
 ```bash
 npm install
-npm run dev       # Development server on port 5000
-npm run build     # Production build to dist/
+npm run dev     # Dev server on port 5000
+npm run build   # Production build
 ```

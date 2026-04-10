@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchTrending, IMAGE_BASE_URL } from '../utils/tmdb';
+import { fetchRecommendations, fetchTrending } from '../utils/tmdb';
 import { Loader2, Star } from 'lucide-react';
 
 const Recommendations = ({ type, currentId }) => {
@@ -11,16 +11,28 @@ const Recommendations = ({ type, currentId }) => {
     const load = async () => {
       setLoading(true);
       try {
-        const res = await fetchTrending(type === 'movie' ? 'movie' : 'tv', 'week');
-        const filtered = (res.data.results || []).filter((i) => i.id !== Number(currentId));
-        setItems(filtered.slice(0, 15));
+        let results = [];
+        // Try real TMDB recommendations first
+        const recRes = await fetchRecommendations(type, currentId);
+        results = recRes.data.results || [];
+
+        // Fall back to trending if not enough recommendations
+        if (results.length < 5) {
+          const trendRes = await fetchTrending(type === 'movie' ? 'movie' : 'tv', 'week');
+          const extra = (trendRes.data.results || []).filter(
+            (i) => i.id !== Number(currentId) && !results.some((r) => r.id === i.id)
+          );
+          results = [...results, ...extra];
+        }
+
+        setItems(results.filter((i) => i.id !== Number(currentId)).slice(0, 18));
       } catch (err) {
         console.error('Recommendations fetch error:', err);
       } finally {
         setLoading(false);
       }
     };
-    load();
+    if (currentId) load();
   }, [type, currentId]);
 
   if (loading) {
@@ -31,11 +43,11 @@ const Recommendations = ({ type, currentId }) => {
     );
   }
 
+  if (!items.length) return null;
+
   return (
     <div className="flex flex-col gap-1">
-      <h3 className="text-lg font-bold text-white mb-3 px-1">
-        Up Next
-      </h3>
+      <h3 className="text-base font-bold text-white mb-3 px-1">Recommended For You</h3>
       <div className="flex flex-col gap-3 max-h-[calc(100vh-120px)] overflow-y-auto hide-scrollbar pr-1">
         {items.map((item) => {
           const title = item.title || item.name || 'Unknown';
@@ -68,9 +80,9 @@ const Recommendations = ({ type, currentId }) => {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                  <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity scale-75 group-hover:scale-100 duration-200">
+                  <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100 duration-200">
                     <svg className="w-4 h-4 text-primary ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
+                      <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
                 </div>

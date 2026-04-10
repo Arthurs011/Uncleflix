@@ -6,6 +6,7 @@ import TV from './pages/TV';
 import Search from './pages/Search';
 import Watch from './pages/Watch';
 import MyList from './pages/MyList';
+import Genre from './pages/Genre';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/watch/:type/:id" element={<Watch />} />
             <Route path="/my-list" element={<MyList />} />
-            <Route path="*" element={<div className="p-8 text-center text-gray-400">404 - Page Not Found</div>} />
+            <Route path="/genre/:type/:id" element={<Genre />} />
+            <Route path="*" element={<div className="p-8 text-center text-gray-500">404 — Page Not Found</div>} />
           </Routes>
         </main>
       </div>
