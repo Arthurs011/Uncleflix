@@ -13,7 +13,8 @@ function App() {
     <Router>
       <div className="bg-primary min-h-screen text-white overflow-x-hidden">
         <Navbar />
-        <main className="pt-20">
+        {/* pt accounts for top nav; pb-16 md:pb-0 accounts for mobile bottom nav */}
+        <main className="pt-14 md:pt-16 pb-16 md:pb-0">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />

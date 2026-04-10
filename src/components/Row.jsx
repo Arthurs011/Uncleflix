@@ -50,7 +50,7 @@ const Row = ({ title, items, type, showProgress }) => {
 
       <div
         ref={rowRef}
-        className="flex gap-3 md:gap-4 overflow-x-auto px-4 md:px-8 pb-4 scrollbar-hide snap-x snap-mandatory touch-pan-x"
+        className="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto px-3 sm:px-4 md:px-8 pb-3 md:pb-4 scrollbar-hide snap-x snap-mandatory touch-pan-x"
         style={{ scrollBehavior: 'smooth' }}
       >
         {items.map((item, idx) => (

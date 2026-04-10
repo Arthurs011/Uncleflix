@@ -1,0 +1,193 @@
+Upgrade the "UncleFlix" web application to be fully responsive across all devices using a mobile-first design approach.
+
+IMPORTANT:
+- The UI must adapt seamlessly to:
+  - Mobile (320px–640px)
+  - Tablet (640px–1024px)
+  - Desktop (1024px+)
+
+-------------------------------------
+
+📱 MOBILE-FIRST DESIGN (CRITICAL)
+
+Start with mobile layout first, then scale up.
+
+-------------------------------------
+
+🧭 NAVBAR RESPONSIVENESS:
+
+DESKTOP:
+- Logo (left)
+- Search (center)
+- Menu (right)
+
+MOBILE:
+- Hamburger menu (☰)
+- Logo (center)
+- Search icon (🔍)
+
+When clicked:
+- Slide-out menu from left
+- Fullscreen overlay menu
+
+-------------------------------------
+
+🎬 HERO SECTION:
+
+MOBILE:
+- Reduce height
+- Stack content vertically
+- Smaller title font
+- Buttons stacked
+
+DESKTOP:
+- Full cinematic banner
+- Side-by-side layout
+
+-------------------------------------
+
+🎞️ MOVIE ROWS:
+
+DESKTOP:
+- Horizontal scroll rows
+- Large cards
+
+MOBILE:
+- Smaller cards
+- Enable touch scroll (no arrows)
+- Reduce spacing
+
+CARD SIZE:
+- Mobile: 120–140px width
+- Tablet: 160px
+- Desktop: 200px+
+
+-------------------------------------
+
+🎥 PLAYER RESPONSIVENESS:
+
+- Maintain 16:9 aspect ratio
+- Full width on mobile
+- Remove unnecessary padding
+- Make iframe adaptive
+
+Below player:
+
+MOBILE:
+- Stack vertically:
+  Title
+  Info
+  Episodes
+  Recommendations
+
+DESKTOP:
+- Split layout (optional sidebar)
+
+-------------------------------------
+
+📺 SERIES EPISODE LIST:
+
+DESKTOP:
+- Vertical sidebar
+
+MOBILE:
+- Horizontal scroll OR collapsible dropdown
+
+-------------------------------------
+
+🔍 SEARCH PAGE:
+
+DESKTOP:
+- Grid (4–6 columns)
+
+TABLET:
+- 3 columns
+
+MOBILE:
+- 2 columns
+
+-------------------------------------
+
+📂 GENRE PAGE:
+
+- Same responsive grid logic
+- Ensure consistent spacing
+
+-------------------------------------
+
+📌 CONTINUE WATCHING:
+
+MOBILE:
+- Horizontal scroll
+- Smaller cards
+
+-------------------------------------
+
+🎨 STYLING RULES (TAILWIND):
+
+Use responsive utilities:
+
+- text-sm md:text-lg lg:text-xl
+- grid-cols-2 md:grid-cols-3 lg:grid-cols-5
+- p-2 md:p-4 lg:p-6
+- flex-col md:flex-row
+
+-------------------------------------
+
+📏 BREAKPOINTS:
+
+- sm: 640px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+
+-------------------------------------
+
+🎯 TOUCH OPTIMIZATION:
+
+- Increase button sizes
+- Add spacing between clickable elements
+- Avoid hover-only interactions
+- Use active/tap feedback
+
+-------------------------------------
+
+⚡ PERFORMANCE:
+
+- Lazy load images on mobile
+- Reduce animation intensity
+- Optimize image sizes
+
+-------------------------------------
+
+🧠 UX IMPROVEMENTS:
+
+- Sticky bottom navigation (mobile only):
+   Home | Search | TV | Profile
+
+- Swipe gestures (optional)
+
+-------------------------------------
+
+🧪 TESTING REQUIREMENTS:
+
+Ensure it works on:
+- iPhone (Safari)
+- Android (Chrome)
+- Tablet
+- Desktop
+
+-------------------------------------
+
+🚀 OUTPUT:
+
+- Fully responsive layouts
+- Updated components
+- Tailwind classes applied
+- No UI breaking at any screen size
+
+-------------------------------------
+
+GOAL:
+
+Transform UncleFlix into a mobile-first, fully responsive OTT platform with smooth usability across all devices.

@@ -9,6 +9,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const debounceTimerRef = useRef(null);
+  const inputRef = useRef(null);
 
   const performSearch = useCallback(async (searchQuery) => {
     if (!searchQuery.trim()) {
@@ -16,7 +17,6 @@ const Search = () => {
       setHasSearched(false);
       return;
     }
-
     setLoading(true);
     setHasSearched(true);
     try {
@@ -32,67 +32,68 @@ const Search = () => {
 
   useEffect(() => {
     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-    debounceTimerRef.current = setTimeout(() => {
-      performSearch(query);
-    }, 500);
-
-    return () => {
-      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-    };
+    debounceTimerRef.current = setTimeout(() => performSearch(query), 450);
+    return () => { if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current); };
   }, [query, performSearch]);
 
   const clearSearch = () => {
     setQuery('');
     setResults([]);
     setHasSearched(false);
+    inputRef.current?.focus();
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 md:px-8">
+    <div className="min-h-screen pt-4 pb-8 px-3 sm:px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">Search Movies & TV Shows</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 md:mb-8 text-center">
+          Search Movies &amp; TV Shows
+        </h1>
 
-        <div className="relative max-w-2xl mx-auto mb-12">
+        {/* Search bar */}
+        <div className="relative max-w-2xl mx-auto mb-6 md:mb-10">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <SearchIcon className="text-gray-400" size={20} />
+            <SearchIcon className="text-gray-400" size={18} />
           </div>
           <input
-            type="text"
+            ref={inputRef}
+            type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for movies, TV shows, actors..."
-            className="w-full pl-12 pr-12 py-4 bg-secondary/80 border border-accent/30 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all shadow-lg"
+            placeholder="Search movies, TV shows..."
+            autoComplete="off"
+            className="w-full pl-11 pr-11 py-3.5 bg-secondary/80 border border-accent/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all shadow-lg text-sm md:text-base"
           />
           {query && (
             <button
               onClick={clearSearch}
-              className="absolute inset-y-0 right-4 flex items-center"
+              className="absolute inset-y-0 right-4 flex items-center touch-manipulation"
             >
-              <X className="text-gray-400 hover:text-white" size={20} />
+              <X className="text-gray-400 hover:text-white transition-colors" size={18} />
             </button>
           )}
         </div>
 
         {loading && (
-          <div className="text-center text-glow py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-glow mx-auto mb-4"></div>
-            Searching...
+          <div className="text-center text-glow py-10">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-glow mx-auto mb-3" />
+            <p className="text-sm">Searching...</p>
           </div>
         )}
 
         {!loading && hasSearched && results.length === 0 && query && (
           <div className="text-center text-gray-400 py-12">
-            <p className="text-xl">No results found for "{query}"</p>
-            <p className="mt-2">Try different keywords</p>
+            <p className="text-lg">No results for &ldquo;{query}&rdquo;</p>
+            <p className="mt-1 text-sm text-gray-500">Try different keywords</p>
           </div>
         )}
 
         {!loading && results.length > 0 && (
           <>
-            <p className="text-gray-400 mb-6 text-center">
-              {results.length} result{results.length !== 1 ? 's' : ''} for "{query}"
+            <p className="text-gray-500 text-xs sm:text-sm mb-4 text-center">
+              {results.length} result{results.length !== 1 ? 's' : ''} for &ldquo;{query}&rdquo;
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
               {results.map((item) => (
                 <Card key={`${item.media_type}-${item.id}`} item={item} type={item.media_type} />
               ))}
@@ -101,9 +102,9 @@ const Search = () => {
         )}
 
         {!hasSearched && (
-          <div className="text-center text-gray-500 mt-20">
-            <SearchIcon size={48} className="mx-auto mb-4 opacity-50" />
-            <p className="text-lg">Enter a search term to find movies and TV shows</p>
+          <div className="text-center text-gray-600 mt-16">
+            <SearchIcon size={44} className="mx-auto mb-4 opacity-40" />
+            <p className="text-base text-gray-500">Type to search movies and TV shows</p>
           </div>
         )}
       </div>

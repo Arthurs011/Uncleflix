@@ -25,26 +25,24 @@ const GenreRow = ({ mediaType }) => {
   if (!genres.length) return null;
 
   return (
-    <div className="mb-10">
-      <div className="flex items-center justify-between px-4 md:px-8 mb-4">
-        <h2 className="text-lg md:text-2xl font-bold text-white">
-          Browse by Genre
-        </h2>
-      </div>
-      <div className="flex gap-3 overflow-x-auto px-4 md:px-8 pb-3 scrollbar-hide snap-x">
+    <div className="mb-8 md:mb-10">
+      <h2 className="text-base md:text-2xl font-bold text-white px-3 sm:px-4 md:px-8 mb-3">
+        Browse by Genre
+      </h2>
+      <div className="flex gap-2 md:gap-3 overflow-x-auto px-3 sm:px-4 md:px-8 pb-2 scrollbar-hide snap-x touch-pan-x">
         {genres.map((genre) => (
           <Link
             key={genre.id}
             to={`/genre/${mediaType}/${genre.id}?name=${encodeURIComponent(genre.name)}`}
-            className="group snap-start flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-2xl glass hover:bg-accent/20 hover:border-accent/50 border border-transparent transition-all duration-200 hover:shadow-lg hover:shadow-accent/10"
+            className="group snap-start flex-shrink-0 flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-2xl glass hover:bg-accent/20 hover:border-accent/50 border border-transparent transition-all duration-200 touch-manipulation active:scale-95"
           >
-            <span className="text-lg leading-none">
+            <span className="text-base md:text-lg leading-none">
               {GENRE_EMOJIS[genre.name] || '🎬'}
             </span>
-            <span className="text-sm font-semibold text-gray-300 group-hover:text-white whitespace-nowrap transition-colors">
+            <span className="text-xs md:text-sm font-semibold text-gray-300 group-hover:text-white whitespace-nowrap transition-colors">
               {genre.name}
             </span>
-            <ChevronRight size={14} className="text-gray-600 group-hover:text-accent transition-colors" />
+            <ChevronRight size={12} className="text-gray-600 group-hover:text-accent transition-colors" />
           </Link>
         ))}
       </div>

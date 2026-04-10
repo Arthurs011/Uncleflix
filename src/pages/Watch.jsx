@@ -222,7 +222,7 @@ const Watch = () => {
       transition={{ duration: 0.35 }}
       className="min-h-screen bg-primary"
     >
-      <div className="max-w-[1600px] mx-auto px-3 md:px-6 pt-4 pb-16">
+      <div className="max-w-[1600px] mx-auto px-2 sm:px-3 md:px-6 pt-2 sm:pt-4 pb-6">
         <div className="flex flex-col xl:flex-row gap-6">
 
           {/* ─── MAIN COLUMN ─── */}
@@ -377,6 +377,7 @@ const Watch = () => {
                     episodes={episodes}
                     selectedEpisode={selectedEpisode}
                     onEpisodeChange={handleEpisodeChange}
+                    mobileHorizontal
                   />
                 )}
               </div>
