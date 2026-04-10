@@ -1,0 +1,175 @@
+Upgrade the existing "UncleFlix" web application by transforming:
+
+1. The video player into a YouTube-style modern media player
+2. The overall UI into a Netflix-style cinematic browsing experience
+
+IMPORTANT:
+Maintain the existing functionality (TMDB + vsembed streaming), but significantly improve UI/UX.
+
+-------------------------------------
+
+🎥 PLAYER (YouTube-Inspired)
+
+Transform the current fullscreen iframe player into a structured player layout similar to YouTube.
+
+LAYOUT:
+
+-------------------------------------
+| VIDEO PLAYER (Top)                |
+-------------------------------------
+| Title                            |
+| Views • Year • Rating            |
+|----------------------------------|
+| Buttons: Like • Share • Save     |
+|----------------------------------|
+| Description (expandable)         |
+|----------------------------------|
+| Recommended Videos Sidebar       |
+-------------------------------------
+
+FEATURES:
+
+1. Video Container:
+- Maintain 16:9 ratio
+- Rounded corners
+- Subtle shadow
+- Responsive
+
+2. Custom Controls Overlay (UI only):
+- Play/Pause icon (visual)
+- Progress bar (fake or synced)
+- Volume icon
+- Fullscreen button
+
+3. Top Overlay:
+- Back button (←)
+- Movie/Series title
+
+4. Bottom Overlay:
+- Gradient fade (black → transparent)
+
+5. Sidebar (IMPORTANT):
+- Show recommended movies/series
+- Vertical scroll list
+- Thumbnail + title + rating
+- Clicking loads new video
+
+-------------------------------------
+
+🎬 NETFLIX-STYLE UI UPGRADE
+
+GLOBAL DESIGN:
+
+- Dark cinematic theme (blue-based, not red)
+- Smooth hover animations
+- Glassmorphism cards
+- Glow effects
+
+-------------------------------------
+
+HOMEPAGE IMPROVEMENTS:
+
+1. HERO SECTION:
+- Auto-changing featured content
+- Background blur + gradient overlay
+- Buttons:
+   ▶ Watch Now
+   ▶ Trailer
+
+2. MOVIE ROWS:
+- Horizontal scroll
+- Snap scrolling
+- Left/right arrow buttons
+- Hover:
+   - Scale up (1.1)
+   - Show overlay
+   - Show Play button
+
+3. CARD DESIGN:
+- Poster
+- Title
+- Rating badge
+- Hover:
+   - Glow border (blue/cyan)
+   - Quick actions
+
+-------------------------------------
+
+🎯 ADVANCED UX FEATURES:
+
+1. CONTINUE WATCHING:
+- Based on recently viewed
+- Show progress bar on thumbnails
+
+2. HOVER PREVIEW (BONUS):
+- Auto-play trailer preview (muted)
+
+3. SMOOTH ANIMATIONS:
+- Framer Motion:
+   - Fade-in
+   - Slide-up
+   - Scale
+
+-------------------------------------
+
+📺 SERIES PLAYER UPGRADE:
+
+Below player:
+
+- Season dropdown
+- Episode list (scrollable)
+- Highlight current episode
+
+Click episode:
+→ Reload player with new URL
+
+-------------------------------------
+
+🧠 STATE MANAGEMENT:
+
+- Store current playing media
+- Store recently viewed
+- Store last watched episode
+
+-------------------------------------
+
+🎨 STYLE DETAILS:
+
+- Background: #0B0F1A
+- Cards: glass + blur
+- Accent: blue (#3B82F6)
+- Glow: cyan (#22D3EE)
+
+-------------------------------------
+
+⚙️ TECH IMPLEMENTATION:
+
+- Split Player into:
+   - VideoFrame.jsx
+   - PlayerControls.jsx
+   - Recommendations.jsx
+
+- Use Flex/Grid layout
+
+-------------------------------------
+
+GOAL:
+
+Transform UncleFlix into a premium OTT platform with:
+- YouTube-style video experience
+- Netflix-style browsing UI
+- Smooth, modern, interactive feel
+
+Ensure:
+- Fully responsive
+- Clean architecture
+- No breaking of existing functionality
+
+-------------------------------------
+
+OUTPUT:
+
+- Updated components
+- Full code for player UI
+- Styled layout
+- Working navigation between videos

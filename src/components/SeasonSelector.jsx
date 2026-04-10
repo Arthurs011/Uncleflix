@@ -2,16 +2,16 @@ const SeasonSelector = ({ seasons, selectedSeason, onSeasonChange }) => {
   if (!seasons || seasons.length <= 1) return null;
 
   return (
-    <div className="mb-6">
-      <label className="block text-glow font-bold mb-2">Season</label>
+    <div className="mb-4">
+      <label className="block text-sm text-gray-400 font-medium mb-2">Season</label>
       <select
         value={selectedSeason}
         onChange={(e) => onSeasonChange(Number(e.target.value))}
-        className="w-full max-w-xs bg-secondary border border-accent/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent"
+        className="w-full max-w-xs bg-secondary border border-accent/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent cursor-pointer"
       >
         {seasons.map((season) => (
-          <option key={season.id} value={season.season_number}>
-            Season {season.season_number} - {season.name || ''}
+          <option key={season.id} value={season.season_number} className="bg-secondary">
+            Season {season.season_number}{season.name ? ` — ${season.name}` : ''}
           </option>
         ))}
       </select>

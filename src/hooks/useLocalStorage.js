@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const RecentlyViewed_Key = 'uncleflix_recent';
 const Watchlist_Key = 'uncleflix_watchlist';
@@ -11,7 +11,7 @@ export const useRecentlyViewed = () => {
     if (stored) setRecent(JSON.parse(stored));
   }, []);
 
-  const addRecent = (item) => {
+  const addRecent = useCallback((item) => {
     const { id, type } = item;
     setRecent((prev) => {
       const filtered = prev.filter((i) => !(i.id === id && i.type === type));
@@ -19,20 +19,20 @@ export const useRecentlyViewed = () => {
       localStorage.setItem(RecentlyViewed_Key, JSON.stringify(updated));
       return updated;
     });
-  };
+  }, []);
 
-  const removeRecent = (id, type) => {
+  const removeRecent = useCallback((id, type) => {
     setRecent((prev) => {
       const filtered = prev.filter((i) => !(i.id === id && i.type === type));
       localStorage.setItem(RecentlyViewed_Key, JSON.stringify(filtered));
       return filtered;
     });
-  };
+  }, []);
 
-  const clearRecent = () => {
+  const clearRecent = useCallback(() => {
     setRecent([]);
     localStorage.removeItem(RecentlyViewed_Key);
-  };
+  }, []);
 
   return { recent, addRecent, removeRecent, clearRecent };
 };
@@ -45,7 +45,7 @@ export const useWatchlist = () => {
     if (stored) setWatchlist(JSON.parse(stored));
   }, []);
 
-  const toggle = (item) => {
+  const toggle = useCallback((item) => {
     const { id, type } = item;
     setWatchlist((prev) => {
       const exists = prev.some((i) => i.id === id && i.type === type);
@@ -58,19 +58,19 @@ export const useWatchlist = () => {
       localStorage.setItem(Watchlist_Key, JSON.stringify(updated));
       return updated;
     });
-  };
+  }, []);
 
-  const isInWatchlist = (id, type) => {
+  const isInWatchlist = useCallback((id, type) => {
     return watchlist.some((i) => i.id === id && i.type === type);
-  };
+  }, [watchlist]);
 
-  const remove = (id, type) => {
+  const remove = useCallback((id, type) => {
     setWatchlist((prev) => {
       const filtered = prev.filter((i) => !(i.id === id && i.type === type));
       localStorage.setItem(Watchlist_Key, JSON.stringify(filtered));
       return filtered;
     });
-  };
+  }, []);
 
   return { watchlist, toggle, isInWatchlist, remove };
 };
